@@ -3,7 +3,7 @@ window.onload = () => {
 
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker
-             .register('/sw.js', { scope: '/pwa/' });
+             .register('./sw.js');
   }
 }
 
@@ -19,15 +19,31 @@ window.addEventListener('beforeinstallprompt', (e) => {
   // Stash the event so it can be triggered later.
   deferredPrompt = e;
   // Update UI notify the user they can install the PWA
+  showInstallPromotion();
   // Optionally, send analytics event that PWA install promo was shown.
   console.log(`'beforeinstallprompt' event was fired.`);
 });
 
+// Get the install button
+const buttonInstall = document.getElementById("install-button");
+
+// Hide the install button initially
+buttonInstall.style.display = 'none';
+
+function showInstallPromotion() {
+  // Show the install button when this function is called
+  buttonInstall.style.display = 'block';
+}
+
+function hideInstallPromotion() {
+  // Hide the install button when this function is called
+  buttonInstall.style.display = 'none';
+}
 
 //Flux d'installation dans l'application
-const buttonInstall = document.getElementById("install-button")
 buttonInstall.addEventListener('click', async () => {
   // Hide the app provided install promotion
+  hideInstallPromotion();
   // Show the install prompt
   deferredPrompt.prompt();
   // Wait for the user to respond to the prompt
@@ -40,6 +56,7 @@ buttonInstall.addEventListener('click', async () => {
 
 window.addEventListener('appinstalled', () => {
   // Hide the app-provided install promotion
+  hideInstallPromotion();
   // Clear the deferredPrompt so it can be garbage collected
   deferredPrompt = null;
   // Optionally, send analytics event to indicate successful install
@@ -55,12 +72,3 @@ function getPWADisplayMode() {
   }
   return 'browser';
 }
-
-window.matchMedia('(display-mode: standalone)').addEventListener('change', (evt) => {
-  let displayMode = 'browser';
-  if (evt.matches) {
-    displayMode = 'standalone';
-  }
-  // Log display mode change to analytics
-  console.log('DISPLAY_MODE_CHANGED', displayMode);
-});
