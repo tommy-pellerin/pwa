@@ -9,6 +9,6 @@ body{
 
 @media all and (display-mode: standalone) {
   body {
-    background-color: yellow;
+    background-color: rgb(252, 220, 124);
   }
 }
