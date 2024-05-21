@@ -3,7 +3,7 @@ window.onload = () => {
 
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker
-             .register('/js/sw.js',{scope: '/pwa/'});
+             .register('/pwa/js/sw.js',{scope: '/pwa/'});
   }
 }
 
