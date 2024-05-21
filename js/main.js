@@ -19,7 +19,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
   // Stash the event so it can be triggered later.
   deferredPrompt = e;
   // Update UI notify the user they can install the PWA
-  showInstallPromotion();
+  // showInstallPromotion();
   // Optionally, send analytics event that PWA install promo was shown.
   console.log(`'beforeinstallprompt' event was fired.`);
 });
@@ -29,7 +29,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
 const buttonInstall = document.getElementById("install-button")
 buttonInstall.addEventListener('click', async () => {
   // Hide the app provided install promotion
-  hideInstallPromotion();
+  // hideInstallPromotion();
   // Show the install prompt
   deferredPrompt.prompt();
   // Wait for the user to respond to the prompt
@@ -42,7 +42,7 @@ buttonInstall.addEventListener('click', async () => {
 
 window.addEventListener('appinstalled', () => {
   // Hide the app-provided install promotion
-  hideInstallPromotion();
+  // hideInstallPromotion();
   // Clear the deferredPrompt so it can be garbage collected
   deferredPrompt = null;
   // Optionally, send analytics event to indicate successful install
